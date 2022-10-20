@@ -1,46 +1,29 @@
-import { Html5QrcodeScanner } from "html5-qrcode";
-import { useEffect } from "react";
+import { useState } from "react";
+import { QrReader } from "react-qr-reader";
 
-const qrcodeRegionId = "html5qr-code-full-region";
-
-const QrCodeScanner = ({
-  fps,
-  qrbox,
-  aspectRatio,
-  disableFlip,
-  qrCodeSuccessCallback,
-  qrCodeErrorCallback,
-}) => {
-  useEffect(() => {
-    const config = {
-      fps,
-      qrbox,
-      aspectRatio,
-      disableFlip,
-    };
-
-    const verbose = true;
-
-    // Suceess callback is required.
-    if (!qrCodeSuccessCallback) {
-      throw "qrCodeSuccessCallback is required callback.";
+const QrCodeScanner = () => {
+  const [qrscan, setQrscan] = useState("No result");
+  const handleScan = (data) => {
+    if (data) {
+      setQrscan(data);
     }
+  };
+  const handleError = (err) => {
+    console.error(err);
+  };
 
-    let html5QrcodeScanner = new Html5QrcodeScanner(
-      qrcodeRegionId,
-      config,
-      verbose
-    );
-    html5QrcodeScanner.render(qrCodeSuccessCallback, qrCodeErrorCallback);
-
-    return () => {
-      html5QrcodeScanner.clear().catch((error) => {
-        console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
-    };
-  }, []);
-
-  return <div id={qrcodeRegionId} />;
+  return (
+    <>
+      <QrReader
+        delay={300}
+        onError={handleError}
+        onScan={handleScan}
+        style={{ height: 240, width: 320 }}
+        legacyMode
+      />
+      <p>{qrscan}</p>
+    </>
+  );
 };
 
 export default QrCodeScanner;

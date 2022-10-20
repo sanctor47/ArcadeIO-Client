@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { AiFillHome } from "react-icons/ai";
 import { GiRank3 } from "react-icons/gi";
 import { FaGamepad } from "react-icons/fa";
+import { BsGift } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 
 const MobileNavbar = () => {
@@ -10,32 +11,34 @@ const MobileNavbar = () => {
 
   return (
     <Container>
-      <NavItem to="/">
+      {/* <NavItem to="/">
         <NavIcon>
           <AiFillHome />
         </NavIcon>
         <NavLabel>Home</NavLabel>
-      </NavItem>
+      </NavItem> */}
       <NavItem to="/ranking">
         <NavIcon>
           <GiRank3 />
         </NavIcon>
         <NavLabel>Ranking</NavLabel>
       </NavItem>
-      <FAB>
-        <FABInner>+</FABInner>
+      <FAB to={"/"}>
+        <FABInner>
+          <FaGamepad size={40} />
+        </FABInner>
       </FAB>
-      <NavItem to="">
+      {/* <NavItem to="">
         <NavIcon>
           <FaGamepad />
         </NavIcon>
         <NavLabel>Arcades</NavLabel>
-      </NavItem>
-      <NavItem>
+      </NavItem> */}
+      <NavItem to={"/prizes"}>
         <NavIcon>
-          <AiFillHome />
+          <BsGift />
         </NavIcon>
-        <NavLabel>Prizez</NavLabel>
+        <NavLabel>Prizes</NavLabel>
       </NavItem>
     </Container>
   );
@@ -43,22 +46,29 @@ const MobileNavbar = () => {
 
 export default MobileNavbar;
 
-const FAB = styled.div`
-  width: 60px;
-  height: 60px;
+const FAB = styled(Link)`
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
+  background-color: #331f49;
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const FABInner = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: white;
-  position: fixed;
-  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: fixed; */
+  /* bottom: 40px; */
 `;
 
 const Container = styled.div`
